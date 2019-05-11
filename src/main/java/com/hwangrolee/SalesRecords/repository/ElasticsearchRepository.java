@@ -2,14 +2,18 @@ package com.hwangrolee.SalesRecords.repository;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hwangrolee.SalesRecords.domain.AbstractDomain;
 import com.hwangrolee.SalesRecords.lib.Page;
 import com.hwangrolee.SalesRecords.lib.Pageable;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -23,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public abstract class ElasticsearchRepository <T, ID> {
+public abstract class ElasticsearchRepository <T extends AbstractDomain, ID> {
 
     @Autowired
     private RestHighLevelClient restClient;
@@ -59,8 +63,12 @@ public abstract class ElasticsearchRepository <T, ID> {
         return item;
     }
 
-    public void save(T entity) {
-
+    public T save(T entity) throws Exception {
+        IndexRequest indexRequest = new IndexRequest(INDEX_NAME, "_doc", entity.getId().toString());
+        indexRequest.source(om.writeValueAsString(entity), XContentType.JSON);
+        IndexResponse indexResponse = restClient.index(indexRequest, RequestOptions.DEFAULT);
+        System.out.println(indexResponse);
+        return this.findOneById((ID)indexResponse.getId());
     }
 
     public void deleteById(ID id) {

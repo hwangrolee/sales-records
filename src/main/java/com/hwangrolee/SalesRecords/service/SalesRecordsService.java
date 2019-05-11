@@ -21,4 +21,7 @@ public class SalesRecordsService {
         return (SalesRecord) salesRecordRepository.findOneById(orderId);
     }
 
+    public SalesRecord saveSalesRecord(SalesRecord salesRecord) throws Exception {
+        return salesRecordRepository.save(salesRecord);
+    }
 }

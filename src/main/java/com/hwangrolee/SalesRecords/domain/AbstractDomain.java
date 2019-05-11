@@ -1,6 +1,11 @@
 package com.hwangrolee.SalesRecords.domain;
 
-public abstract class AbstractDomain {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
-    public AbstractDomain() {}
+@Data
+public abstract class AbstractDomain<ID> {
+
+    @JsonIgnore
+    private ID id;
 }

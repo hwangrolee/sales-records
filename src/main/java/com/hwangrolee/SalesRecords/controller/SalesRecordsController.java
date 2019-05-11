@@ -27,34 +27,18 @@ public class SalesRecordsController {
     public @ResponseBody ResponseEntity<SalesRecord> getSalesRecords(@PathVariable("orderId") Long orderId) throws Exception {
         SalesRecord salesRecord = salesRecordsService.getSalesRecord(orderId);
 
-//        if(salesRecord.getOrderId() == 0L) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
+        if(salesRecord.getOrderId() == 0L) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
         return  ResponseEntity.status(HttpStatus.OK).body(salesRecord);
     }
-//
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public @ResponseBody ResponseEntity<SalesRecord> saveSalesRecord(@RequestBody SalesRecord salesRecord) {
-//
-////        salesRecord.setOrderId(1L);
-//        salesRecord.setRegion("Asia");
-//        salesRecord.setCountry("South Korea");
-//        salesRecord.setItemType("Fruits");
-//        salesRecord.setSalesChannel("Offline");
-//        salesRecord.setOrderPriority("M");
-//        salesRecord.setOrderDate(new Date());
-//        salesRecord.setShipDate(new Date());
-//        salesRecord.setUnitsSold(1111);
-//        salesRecord.setUnitPrice(2222.22F);
-//        salesRecord.setUnitCost(3333.33F);
-//        salesRecord.setTotalRevenue(4444.44F);
-//        salesRecord.setTotalCost(555.55F);
-//        salesRecord.setTotalProfit(666.66F);
-//
-//        SalesRecord savedSalesRecord = salesRecordsService.upsertSalesRecord(salesRecord);
-//        return ResponseEntity.status(HttpStatus.OK).body(savedSalesRecord);
-//    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<SalesRecord> saveSalesRecord(@RequestBody SalesRecord salesRecord) throws Exception {
+        SalesRecord savedSalesRecord = salesRecordsService.saveSalesRecord(salesRecord);
+        return ResponseEntity.status(HttpStatus.OK).body(savedSalesRecord);
+    }
 //
 //    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
 //    public @ResponseBody ResponseEntity<SalesRecord> updateSalesRecord(@PathVariable("orderId") Long orderId, @RequestBody SalesRecord salesRecord) {
