@@ -1,0 +1,28 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    elasticsearch:
+      cluster-nodes: localhost:9300
+      cluster-name: docker-cluster
+      repositories:
+        enabled: true
+  elasticsearch:
+    jest:
+      uris: http://localhost:9300
+
+logging:
+  level:
+    org:
+      elasticsearch:
+        index:
+          search:
+            slowlog:
+              query: DEBUG
+      springframework:
+        data:
+          elasticsearch:
+            core: TRACE
+
+
+
