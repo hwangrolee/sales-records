@@ -5,10 +5,11 @@
 ### 개발환경
  - spring boot 2.1.4
  - elasticsearch 6.5.0
+ - elasticsearch rest high level client 6.5.0
  
 ### 기능
  - Rest API를 통해 Elasticsearch CRUD 가능.
- - Rest Docs로 
+
 
 ##### 도커로 엘라스틱 서치 설치하기
 ```bash
