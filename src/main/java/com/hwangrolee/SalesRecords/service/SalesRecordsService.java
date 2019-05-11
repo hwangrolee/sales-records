@@ -1,32 +1,24 @@
 package com.hwangrolee.SalesRecords.service;
 
 import com.hwangrolee.SalesRecords.domain.SalesRecord;
-import com.hwangrolee.SalesRecords.repository.SalesRecordsRepository;
+import com.hwangrolee.SalesRecords.lib.Page;
+import com.hwangrolee.SalesRecords.lib.Pageable;
+import com.hwangrolee.SalesRecords.repository.SalesRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SalesRecordsService {
 
     @Autowired
-    private SalesRecordsRepository salesRecordsRepository;
+    private SalesRecordRepository salesRecordRepository;
 
-    public Page<SalesRecord> listSalesRecords() {
-        return salesRecordsRepository.findAll(PageRequest.of(0, 10));
+    public Page<SalesRecord> listSalesRecords() throws Exception {
+        return salesRecordRepository.findAll(Pageable.of(0, 10));
     }
 
-    public SalesRecord getSalesRecords(Long orderId) {
-        return salesRecordsRepository.findById(orderId).orElse(new SalesRecord());
+    public SalesRecord getSalesRecord(Long orderId) throws Exception {
+        return (SalesRecord) salesRecordRepository.findOneById(orderId);
     }
 
-    public SalesRecord upsertSalesRecord(SalesRecord salesRecord) {
-        return salesRecordsRepository.index(salesRecord);
-    }
-
-    public boolean deleteSalesRecord(Long orderId) {
-        salesRecordsRepository.deleteById(orderId);
-        return salesRecordsRepository.existsById(orderId);
-    }
 }

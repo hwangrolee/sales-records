@@ -3,13 +3,14 @@ spring:
     allow-bean-definition-overriding: true
   data:
     elasticsearch:
-      cluster-nodes: localhost:9300
+      cluster-nodes: localhost:9200
       cluster-name: docker-cluster
       repositories:
         enabled: true
   elasticsearch:
+    index: sales-records
     jest:
-      uris: http://localhost:9300
+      uris: http://localhost:9200
 
 logging:
   level:

@@ -1,4 +1,6 @@
 package com.hwangrolee.SalesRecords.domain;
 
-public class AbstractDomain {
+public abstract class AbstractDomain {
+
+    public AbstractDomain() {}
 }
