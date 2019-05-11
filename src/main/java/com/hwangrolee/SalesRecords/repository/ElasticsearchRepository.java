@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hwangrolee.SalesRecords.domain.AbstractDomain;
 import com.hwangrolee.SalesRecords.lib.Page;
 import com.hwangrolee.SalesRecords.lib.Pageable;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -15,6 +17,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +55,6 @@ public abstract class ElasticsearchRepository <T extends AbstractDomain, ID> {
     }
 
     public void count() {
-
     }
 
     public T findOneById(ID id) throws Exception {
@@ -67,12 +69,16 @@ public abstract class ElasticsearchRepository <T extends AbstractDomain, ID> {
         IndexRequest indexRequest = new IndexRequest(INDEX_NAME, "_doc", entity.getId().toString());
         indexRequest.source(om.writeValueAsString(entity), XContentType.JSON);
         IndexResponse indexResponse = restClient.index(indexRequest, RequestOptions.DEFAULT);
-        System.out.println(indexResponse);
-        return this.findOneById((ID)indexResponse.getId());
+        if(indexResponse.status() == RestStatus.CREATED || indexResponse.status() == RestStatus.OK) {
+            return this.findOneById((ID)indexResponse.getId());
+        }
+        throw new Exception("데이터를 저장하지 못했습니다.");
     }
 
-    public void deleteById(ID id) {
-
+    public boolean deleteById(ID id) throws Exception {
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX_NAME, "_doc", id.toString());
+        DeleteResponse deleteResponse = restClient.delete(deleteRequest, RequestOptions.DEFAULT);
+        return RestStatus.OK == deleteResponse.status();
     }
 
     @SuppressWarnings("unchecked")

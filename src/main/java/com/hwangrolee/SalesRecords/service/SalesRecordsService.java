@@ -18,10 +18,14 @@ public class SalesRecordsService {
     }
 
     public SalesRecord getSalesRecord(Long orderId) throws Exception {
-        return (SalesRecord) salesRecordRepository.findOneById(orderId);
+        return salesRecordRepository.findOneById(orderId);
     }
 
     public SalesRecord saveSalesRecord(SalesRecord salesRecord) throws Exception {
         return salesRecordRepository.save(salesRecord);
+    }
+
+    public boolean deleteSalesRecord(Long orderId) throws Exception {
+        return salesRecordRepository.deleteById(orderId);
     }
 }

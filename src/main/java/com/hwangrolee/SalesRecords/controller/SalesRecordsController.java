@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sales-records")
@@ -39,30 +40,31 @@ public class SalesRecordsController {
         SalesRecord savedSalesRecord = salesRecordsService.saveSalesRecord(salesRecord);
         return ResponseEntity.status(HttpStatus.OK).body(savedSalesRecord);
     }
-//
-//    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
-//    public @ResponseBody ResponseEntity<SalesRecord> updateSalesRecord(@PathVariable("orderId") Long orderId, @RequestBody SalesRecord salesRecord) {
-//        SalesRecord savedSalesRecord = salesRecordsService.getSalesRecords(orderId);
-//
-//        if(savedSalesRecord.getOrderId() == 0L) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//        salesRecord.setOrderId(orderId);
-//        savedSalesRecord = salesRecordsService.upsertSalesRecord(salesRecord);
-//        return ResponseEntity.status(HttpStatus.OK).body(savedSalesRecord);
-//    }
-//
-//    @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
-//    public @ResponseBody ResponseEntity<Boolean> deleteSalesRecord(@PathVariable("orderId") Long orderId) {
-//        SalesRecord savedSalesRecord = salesRecordsService.getSalesRecords(orderId);
-//
-//        if(savedSalesRecord.getOrderId() == 0L) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//        boolean existSalesRecord = salesRecordsService.deleteSalesRecord(orderId);
-//        return ResponseEntity.status(HttpStatus.OK).body(existSalesRecord);
-//    }
+
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
+    public @ResponseBody ResponseEntity<SalesRecord> updateSalesRecord(@PathVariable("orderId") Long orderId, @RequestBody SalesRecord salesRecord) throws Exception {
+        SalesRecord savedSalesRecord = salesRecordsService.getSalesRecord(orderId);
+
+        if(savedSalesRecord.getOrderId() == 0L) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        salesRecord.setOrderId(orderId);
+        savedSalesRecord = salesRecordsService.saveSalesRecord(salesRecord);
+        return ResponseEntity.status(HttpStatus.OK).body(savedSalesRecord);
+    }
+
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity<Map> deleteSalesRecord(@PathVariable("orderId") Long orderId) throws Exception {
+        SalesRecord savedSalesRecord = salesRecordsService.getSalesRecord(orderId);
+
+        if(savedSalesRecord.getOrderId() == 0L) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        boolean result = salesRecordsService.deleteSalesRecord(orderId);
+        HashMap<String, Object> resultMap = new HashMap<String, Object>(){ { put("result", result); } };
+        return ResponseEntity.status(HttpStatus.OK).body(resultMap);
+    }
 
 }

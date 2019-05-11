@@ -29,7 +29,7 @@ public class SalesRecord extends AbstractDomain<Long>{
     private String orderPriority;
 
     @JsonProperty("order_date")
-    private Date orderDate;
+    private Date orderDate = new Date();
 
     @JsonProperty("ship_date")
     private Date shipDate;
