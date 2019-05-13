@@ -2,25 +2,27 @@ package com.hwangrolee.SalesRecords.controller;
 
 import com.hwangrolee.SalesRecords.domain.SalesRecord;
 import com.hwangrolee.SalesRecords.lib.Page;
+import com.hwangrolee.SalesRecords.lib.SearchParameters;
 import com.hwangrolee.SalesRecords.service.SalesRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/sales-records")
 public class SalesRecordsController {
 
     @Autowired
     private SalesRecordsService salesRecordsService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<Page<SalesRecord>> listSalesRecords() throws Exception {
-        Page<SalesRecord> listSalesRecords = salesRecordsService.listSalesRecords();
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = { "application/json" })
+    public @ResponseBody ResponseEntity<Page<SalesRecord>> listSalesRecords(@ModelAttribute SearchParameters searchParameters) throws Exception {
+        Page<SalesRecord> listSalesRecords = salesRecordsService.listSalesRecords(searchParameters);
         return  ResponseEntity.status(HttpStatus.OK).body(listSalesRecords);
     }
 

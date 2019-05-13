@@ -20,10 +20,7 @@ logging:
           search:
             slowlog:
               query: DEBUG
-      springframework:
-        data:
-          elasticsearch:
-            core: TRACE
+      springframework: INFO
 
 
 
