@@ -29,19 +29,19 @@ public class SalesRecordRepository extends ElasticsearchRepository<SalesRecord, 
 
         BoolQueryBuilder query = new BoolQueryBuilder();
 
-        if(parameters.getRegion().length > 0) {
+        if(parameters.getRegion().size() > 0) {
             query.must(QueryBuilders.termsQuery("region", parameters.getRegion()));
         }
 
-        if(parameters.getCountry().length > 0) {
+        if(parameters.getCountry().size() > 0) {
             query.must(QueryBuilders.termsQuery("country", parameters.getCountry()));
         }
 
-        if(parameters.getItemType().length > 0) {
+        if(parameters.getItemType().size() > 0) {
             query.must(QueryBuilders.termsQuery("item_type", parameters.getItemType()));
         }
 
-        if(parameters.getOrderPriority().length > 0) {
+        if(parameters.getOrderPriority().size() > 0) {
             query.must(QueryBuilders.termsQuery("order_priority", parameters.getOrderPriority()));
         }
 

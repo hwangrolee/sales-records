@@ -21,7 +21,7 @@ public class SalesRecordsController {
     private SalesRecordsService salesRecordsService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = { "application/json" })
-    public @ResponseBody ResponseEntity<Page<SalesRecord>> listSalesRecords(@ModelAttribute SearchParameters searchParameters) throws Exception {
+    public @ResponseBody ResponseEntity<Page<SalesRecord>> listSalesRecords( SearchParameters searchParameters) throws Exception {
         Page<SalesRecord> listSalesRecords = salesRecordsService.listSalesRecords(searchParameters);
         return  ResponseEntity.status(HttpStatus.OK).body(listSalesRecords);
     }

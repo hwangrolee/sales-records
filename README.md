@@ -15,3 +15,5 @@
 ```bash
 $ docker run -p 9200:9200 -p 9300:9300 -d -e "http.host=0.0.0.0" -e "xpack.security.enabled=false" -e "transport.host=0.0.0.0" --name es-spring-2 docker.elastic.co/elasticsearch/elasticsearch:6.5.0
 ```
+
+### Folder Structure
