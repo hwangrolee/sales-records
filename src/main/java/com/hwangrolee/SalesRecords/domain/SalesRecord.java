@@ -1,10 +1,13 @@
 package com.hwangrolee.SalesRecords.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hwangrolee.SalesRecords.serializer.SalesRecordSerializer;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@JsonSerialize(using = SalesRecordSerializer.class)
 public class SalesRecord extends AbstractDomain<Long>{
 
     private Long orderId = 0L;
