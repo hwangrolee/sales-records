@@ -18,6 +18,10 @@ public class SalesRecordsService {
         return salesRecordRepository.findAll(searchParameters, Pageable.of(searchParameters.getPage(), searchParameters.getSize()));
     }
 
+    public long countSalesRecords(SearchParameters searchParameters) throws Exception {
+        return salesRecordRepository.count(searchParameters);
+    }
+
     public SalesRecord getSalesRecord(Long orderId) throws Exception {
         return salesRecordRepository.findOneById(orderId);
     }

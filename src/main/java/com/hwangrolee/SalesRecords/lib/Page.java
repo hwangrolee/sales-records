@@ -17,6 +17,8 @@ public class Page<T> {
     private int page = 0;
     private int size = 10;
 
+    public Page() {}
+
     public Page(List<T> list, long totalCount, Pageable pageable) {
         this.list = list;
         this.count = list.size();

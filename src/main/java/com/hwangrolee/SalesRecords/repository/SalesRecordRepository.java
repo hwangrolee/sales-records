@@ -26,6 +26,11 @@ public class SalesRecordRepository extends ElasticsearchRepository<SalesRecord, 
         return this.findAll(queryBuilder, pageable);
     }
 
+    public long count(SearchParameters searchParameters) throws Exception {
+        QueryBuilder queryBuilder = this.createSalesRecordSearchQuery(searchParameters);
+        return this.count(queryBuilder);
+    }
+
     private QueryBuilder createSalesRecordSearchQuery(SearchParameters parameters) {
 
         BoolQueryBuilder query = new BoolQueryBuilder();

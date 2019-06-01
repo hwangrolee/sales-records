@@ -56,7 +56,17 @@ public abstract class ElasticsearchRepository <T extends AbstractDomain, ID> {
         return new Page<T>(list, searchResponse.getHits().totalHits, pageable);
     }
 
-    public void count() {
+    public long count(QueryBuilder queryBuilder) throws Exception {
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder
+                .query(queryBuilder)
+                .size(0);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse = restClient.search(searchRequest, RequestOptions.DEFAULT);
+        long count = searchResponse.getHits().totalHits;
+        log.info(searchRequest.toString());
+        return count;
     }
 
     public T findOneById(ID id) throws Exception {
