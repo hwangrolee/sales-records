@@ -39,8 +39,8 @@ public class SearchParameters extends AbstractSearchParameter {
     private Float fromUnitPrice;
     private Float toUnitPrice;
 
-    private Float fromUnitCode;
-    private Float toUnitCode;
+    private Float fromUnitCost;
+    private Float toUnitCost;
 
     private Float fromTotalRevenue;
     private Float toTotalRevenue;

@@ -24,6 +24,7 @@ public class SalesRecord extends AbstractDomain<Long>{
     private Float totalRevenue;
     private Float totalCost;
     private Float totalProfit;
+
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
         super.setId(orderId);

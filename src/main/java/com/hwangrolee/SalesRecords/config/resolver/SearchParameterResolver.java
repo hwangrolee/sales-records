@@ -232,27 +232,27 @@ public class SearchParameterResolver implements HandlerMethodArgumentResolver {
             }
         }
 
-        if(parameterMap.containsKey("from_unit_code")) {
-            String p = parameterMap.get("from_unit_code")[0].trim();
+        if(parameterMap.containsKey("from_unit_cost")) {
+            String p = parameterMap.get("from_unit_cost")[0].trim();
             if(StringUtils.isEmpty(p) == false) {
                 try {
-                    float fromUnitCode = Float.parseFloat(p);
-                    searchParameters.setFromUnitCode(fromUnitCode);
+                    float fromUnitCost = Float.parseFloat(p);
+                    searchParameters.setFromUnitCost(fromUnitCost);
                 } catch(NumberFormatException ex) {
-                    String cause = parameterException.addParameter(p,"from_unit_code", "숫자(실수형)", ExceptionType.INVALID);
+                    String cause = parameterException.addParameter(p,"from_unit_cost", "숫자(실수형)", ExceptionType.INVALID);
                     log.error(cause);
                 }
             }
         }
 
-        if(parameterMap.containsKey("to_unit_code")) {
-            String p = parameterMap.get("to_unit_code")[0].trim();
+        if(parameterMap.containsKey("to_unit_cost")) {
+            String p = parameterMap.get("to_unit_cost")[0].trim();
             if(StringUtils.isEmpty(p) == false) {
                 try {
-                    float toUnitCode = Float.parseFloat(p);
-                    searchParameters.setToUnitCode(toUnitCode);
+                    float toUnitCost = Float.parseFloat(p);
+                    searchParameters.setToUnitCost(toUnitCost);
                 } catch(NumberFormatException ex) {
-                    String cause = parameterException.addParameter(p,"to_unit_code", "숫자(실수형)", ExceptionType.INVALID);
+                    String cause = parameterException.addParameter(p,"to_unit_cost", "숫자(실수형)", ExceptionType.INVALID);
                     log.error(cause);
                 }
             }

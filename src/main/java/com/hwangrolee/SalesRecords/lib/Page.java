@@ -33,7 +33,7 @@ public class Page<T> {
             this.isPrev = true;
         }
 
-        if (this.totalPage > this.page) {
+        if (this.totalPage > this.page + 1) {
             this.isNext = true;
         }
     }
